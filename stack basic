@@ -1,0 +1,18 @@
+import java.util.Stack;
+
+public class Main
+{
+	public static void main(String[] args) {
+		Stack<String> colour=new Stack<>();
+		
+		colour.push("red");
+		colour.push("blue");
+		System.out.println(colour);
+		
+		    System.out.println(colour.peek());
+		
+// 		 String s=colour.pop();
+// 		 //System.out.println(s);
+// 		 System.out.println(colour);
+		}
+}
