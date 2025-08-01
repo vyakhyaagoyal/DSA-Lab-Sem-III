@@ -1,0 +1,74 @@
+public class FixedSizeStack {
+    int maxSize;
+    int[] stackArray;
+    int top;
+
+    // Constructor to initialize the stack with a fixed size
+    public FixedSizeStack(int size) {
+        this.maxSize = size;
+        this.stackArray = new int[maxSize];
+        this.top = -1; // Stack is initially empty
+    }
+
+    // Method to check if the stack is empty
+    public boolean isEmpty() {
+        return (top == -1);
+    }
+
+    // Method to check if the stack is full
+    public boolean isFull() {
+        return (top == maxSize - 1);
+    }
+
+    // Method to push an element onto the stack
+    public void push(int value) {
+        if (isFull()) {
+            System.out.println("Stack is full. Cannot push " + value);
+        } else {
+            stackArray[++top] = value;
+            System.out.println("Pushed: " + value);
+        }
+    }
+
+    // Method to pop an element from the stack
+    public int pop() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. Cannot pop.");
+            return -1; // Indicate an error or empty stack
+        } else {
+            int poppedValue = stackArray[top--];
+            System.out.println("Popped: " + poppedValue);
+            return poppedValue;
+        }
+    }
+
+    // Method to peek at the top element without removing it
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Stack is empty. No element to peek.");
+            return -1; // Indicate an error or empty stack
+        } else {
+            return stackArray[top];
+        }
+    }
+
+    public static void main(String[] args) {
+        FixedSizeStack myStack = new FixedSizeStack(5); // Create a stack with a fixed size of 5
+
+        myStack.push(10);
+        myStack.push(20);
+        myStack.push(30);
+        System.out.println("Top element: " + myStack.peek());
+        myStack.push(40);
+        myStack.push(50);
+        myStack.push(60); // This will show "Stack is full"
+
+        myStack.pop();
+        myStack.pop();
+        System.out.println("Top element after pops: " + myStack.peek());
+        myStack.pop();
+        myStack.pop();
+        myStack.pop();
+        myStack.pop(); // This will show "Stack is empty"
+    }
+}
