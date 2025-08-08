@@ -1,0 +1,93 @@
+public class ArrayQueue {
+    private int[] queueArray;
+    private int front;
+    private int rear;
+    private int capacity;
+
+    public ArrayQueue(int size) {
+        this.capacity = size;
+        this.queueArray = new int[capacity];
+        this.front = -1; // Indicates an empty queue
+        this.rear = -1;  // Indicates an empty queue
+    }
+
+    // Checks if the queue is empty
+    public boolean isEmpty() {
+        return front == -1;
+    }
+
+    // Checks if the queue is full
+    public boolean isFull() {
+        return rear == capacity - 1;
+    }
+
+    // Inserts an element into the queue
+    public void enqueue(int item) {
+        if (isFull()) {
+            System.out.println("Queue Overflow: Cannot enqueue element " + item + ". Queue is full.");
+            return;
+        }
+        if (isEmpty()) {
+            front = 0; // Initialize front when the first element is added
+        }
+        rear++;
+        queueArray[rear] = item;
+        System.out.println("Enqueued: " + item);
+    }
+
+    // Deletes an element from the queue
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue Underflow: Cannot dequeue from an empty queue.");
+            return -1; // Or throw an exception
+        }
+        int dequeuedItem = queueArray[front];
+        if (front == rear) { // Last element is being dequeued
+            front = -1;
+            rear = -1;
+        } else {
+            front++;
+        }
+        System.out.println("Dequeued: " + dequeuedItem);
+        return dequeuedItem;
+    }
+
+    // Displays the current queue elements, front, and rear indices
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is Empty.");
+            return;
+        }
+        System.out.print("Queue elements: ");
+        for (int i = front; i <= rear; i++) {
+            System.out.print(queueArray[i] + " ");
+        }
+        System.out.println("\nFront index: " + front + ", Rear index: " + rear);
+    }
+
+    public static void main(String[] args) {
+        ArrayQueue queue = new ArrayQueue(5); // Fixed size of 5
+
+        // Attempting to dequeue from an empty queue
+        queue.dequeue();
+
+        // Enqueuing five elements
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+        queue.enqueue(50);
+
+        // Attempting to enqueue a sixth element (should fail due to overflow)
+        queue.enqueue(60);
+
+        // Displaying the queue contents
+        queue.display();
+
+        // Dequeuing one element
+        queue.dequeue();
+
+        // Displaying the updated queue
+        queue.display();
+    }
+}
