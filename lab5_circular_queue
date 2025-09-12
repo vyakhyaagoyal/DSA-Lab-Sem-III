@@ -1,0 +1,104 @@
+public class CircularQueue {
+    private int[] queueArray;
+    private int maxSize;
+    private int front;
+    private int rear;
+    private int currentSize; // To track the number of elements
+
+    public CircularQueue(int size) {
+        maxSize = size;
+        queueArray = new int[maxSize];
+        front = -1;
+        rear = -1;
+        currentSize = 0;
+    }
+
+    public boolean isEmpty() {
+        return currentSize == 0;
+    }
+
+    public boolean isFull() {
+        return currentSize == maxSize;
+    }
+
+    public void enqueue(int item) {
+        if (isFull()) {
+            System.out.println("Queue is full. Cannot enqueue " + item);
+            return;
+        }
+
+        if (isEmpty()) {
+            front = 0;
+        }
+        rear = (rear + 1) % maxSize;
+        queueArray[rear] = item;
+        currentSize++;
+        System.out.println("Enqueued: " + item);
+    }
+
+    public int dequeue() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return -1; // Or throw an exception
+        }
+
+        int item = queueArray[front];
+        front = (front + 1) % maxSize;
+        currentSize--;
+
+        if (isEmpty()) { // Reset front and rear if the queue becomes empty
+            front = -1;
+            rear = -1;
+        }
+        System.out.println("Dequeued: " + item);
+        return item;
+    }
+
+    public int peek() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty. Cannot peek.");
+            return -1; // Or throw an exception
+        }
+        return queueArray[front];
+    }
+
+    public void display() {
+        if (isEmpty()) {
+            System.out.println("Queue is empty.");
+            return;
+        }
+
+        System.out.print("Queue elements: ");
+        int i = front;
+        for (int count = 0; count < currentSize; count++) {
+            System.out.print(queueArray[i] + " ");
+            i = (i + 1) % maxSize;
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        CircularQueue cq = new CircularQueue(5);
+
+        cq.enqueue(10);
+        cq.enqueue(20);
+        cq.enqueue(30);
+        cq.display();
+
+        cq.dequeue();
+        cq.display();
+
+        cq.enqueue(40);
+        cq.enqueue(50);
+        cq.enqueue(60); // This will show "Queue is full"
+        cq.display();
+
+        System.out.println("Front element: " + cq.peek());
+
+        cq.dequeue();
+        cq.dequeue();
+        cq.dequeue();
+        cq.dequeue(); // This will show "Queue is empty"
+        cq.display();
+    }
+}
