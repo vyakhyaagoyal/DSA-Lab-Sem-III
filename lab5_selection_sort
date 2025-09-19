@@ -1,0 +1,28 @@
+import java.util.Arrays;
+
+public class selectionSort {
+
+    static void selectionSort(int array[]) {
+        int size = array.length;
+
+        for (int i = 0; i < size; i++) {
+            for (int j = i+1; j < size; j++) {
+                if (array[i] > array[j]) {
+                    int temp = array[i];
+                    array[i] = array[j];
+                    array[j] = temp;
+                }
+            }
+        }
+    }
+
+    public static void main(String args[]) {
+        int[] data = { 64, 34, 25, 12, 22, 11, 90 };
+
+        System.out.println("Original array: " + Arrays.toString(data));
+
+        selectionSort(data);
+
+        System.out.println("Sorted array: " + Arrays.toString(data));
+    }
+}
