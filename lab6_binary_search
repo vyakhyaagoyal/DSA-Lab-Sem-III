@@ -1,0 +1,47 @@
+import java.util.Arrays;
+
+public class BinarySearchExample {
+
+    public static int binarySearch(int[] arr, int target) {
+        int low = 0;
+        int high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2; // Calculate midpoint to prevent overflow
+
+            if (arr[mid] == target) {
+                return mid; // Target found
+            } else if (target < arr[mid]) {
+                high = mid - 1; // Search in the left half
+            } else {
+                low = mid + 1; // Search in the right half
+            }
+        }
+        return -1; // Target not found
+    }
+
+    public static void main(String[] args) {
+        int[] sortedArray = {1, 5, 8, 12, 16, 20, 24, 28, 32};
+        int target1 = 16;
+        int target2 = 10;
+
+        int index1 = binarySearch(sortedArray, target1);
+        int index2 = binarySearch(sortedArray, target2);
+
+        if (index1 != -1) {
+            System.out.println("Target " + target1 + " found at index: " + index1);
+        } else {
+            System.out.println("Target " + target1 + " not found in the array.");
+        }
+
+        if (index2 != -1) {
+            System.out.println("Target " + target2 + " found at index: " + index2);
+        } else {
+            System.out.println("Target " + target2 + " not found in the array.");
+        }
+
+        // Using Java's built-in Arrays.binarySearch() method
+        int builtInIndex1 = Arrays.binarySearch(sortedArray, target1);
+        System.out.println("Using Arrays.binarySearch() for " + target1 + ": " + builtInIndex1);
+    }
+}
